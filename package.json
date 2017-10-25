@@ -1,0 +1,21 @@
+{
+  "name": "socket.io",
+  "version": "0.0.0",
+  "description": "experience with socket.io",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://Peter_Toth1@gitbud.epam.com/Peter_Toth1/js_learning.git"
+  },
+  "keywords": [
+    "socket.io"
+  ],
+  "author": "Tóth Péter",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.15.2"
+  }
+}
