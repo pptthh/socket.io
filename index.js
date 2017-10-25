@@ -11,6 +11,10 @@ io.on('connection', function(socket){
     console.log('\na user connected', socket.handshake.query);
 
     socket.on('chat message', function(msg){
+        io.emit('chat message', msg);
+    });
+
+    socket.on('chat message', function(msg){
         console.log(socket.handshake.query.t,' message: ' + msg);
     });
     
