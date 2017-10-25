@@ -1,5 +1,5 @@
 {
-  "name": "socket.io",
+  "name": "chat_with_socket_io",
   "version": "0.0.0",
   "description": "experience with socket.io",
   "main": "index.js",
@@ -16,6 +16,7 @@
   "author": "Tóth Péter",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.15.2"
+    "express": "^4.15.2",
+    "socket.io": "^2.0.4"
   }
 }
