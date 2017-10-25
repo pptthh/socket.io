@@ -8,7 +8,10 @@ app.get('/', function(req, res){
 });
 
 io.on('connection', function(socket){
-    console.log('\n\na user connected', socket.handshake.query);
+    console.log('\na user connected', socket.handshake.query);
+    socket.on('disconnect', function(){
+        console.log('user disconnected',socket.handshake.query);
+    });
 });
 
 http.listen(port, function(){
