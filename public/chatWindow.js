@@ -1,12 +1,20 @@
-$(function () {
-    var socket = io();
-    $('form').submit(function(){
-      socket.emit('chat message', $('#m').val());
-      $('#m').val('');
-      return false;
+const socket = io();
+
+function handleButtonClick(){
+    console.log('socket.emit("chat message"):',{
+        nm: document.getElementById("nm").value,
+        msg: document.getElementById("msg").value,
     });
-    socket.on('chat message', function(msg){
-      $('#messages').append($('<li>').text(msg));
+    socket.emit('chat message',{
+        nm: document.getElementById("nm").value,
+        msg: document.getElementById("msg").value,
     });
-  });
-  
+    msg: document.getElementById("msg").value = '';
+}
+
+socket.on('chat message', msg =>
+{
+    const li = document.createElement("li");
+    li.appendChild(document.createTextNode(msg));
+    document.getElementById("messages").appendChild(li);
+});
