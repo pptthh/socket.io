@@ -1,4 +1,5 @@
-const app = require('express')();
+const express = require('express');
+const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http,
 {
@@ -12,8 +13,8 @@ const io = require('socket.io')(http,
     //  parser:socket.io-parser
 });
 const port = 3000;
-
-app.get('/', (req, res) => res.sendFile(__dirname + '/chatWindow.html'));
+app.use('/p',express.static('public'));
+app.get('/', (req, res) => res.sendFile(__dirname + '/public/chatWindow.html'));
 
 io.on('connection', socket =>
 {
