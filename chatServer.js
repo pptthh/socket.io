@@ -20,13 +20,13 @@ io.on('connection', socket =>
 {
     console.log('a user connected', socket.handshake.query);
     
-    socket.on('chat message', msg => io.emit('chat message', msg.nm + ':\t'+msg.msg));
+    socket.on('chat message', msg => io.emit('chat message', msg.userName + ':\t'+msg.msg));
     
     socket.on('chat message', msg =>
         console.log(socket.handshake.query.t,
             ' message: ' + msg,
-            msg.nm,
-            msg.msg)
+            msg.userName,
+            msg.textMsg)
         );
     
     socket.on('disconnect', () => console.log('user disconnected',socket.handshake.query));

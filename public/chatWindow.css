@@ -1,9 +1,27 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font: 13px Helvetica, Arial; }
-form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
-form input { border: 0; min-width: 50px; padding: 5px; margin-right: .5%; }
-form input.txt{ width: 50%; }
-form button { background: #ccc; border: none; padding: 5px; }
+body { color: #aaa; background: #333; font: 13px Helvetica, Arial; }
+input, button { color: #aaa; background: #000; padding: 1px;}
+input { border: 0; min-width: 50px; padding: 5px; margin-right: .5%; }
+button { background: #ccc; border: none; padding: 5px; }
+
 #messages { list-style-type: none; margin: 0; padding: 0; }
-#messages li { padding: 5px 10px; }
-#messages li:nth-child(odd) { background: #eee; }
+#messages li { padding: 5px 10px; background: #555}
+#messages li:nth-child(odd) { background: #333; }
+
+#textMsg{ width: 50%; }
+#rooms{
+    position: fixed;
+    bottom:30px; top: 0; right: 0;
+    width: 100px;
+    border: 1px solid #aaa;
+}
+#sendMessage {position: fixed; bottom:0; left: 0; right: 0;border: 1px solid #aaa;}
+
+input#userName  {position: fixed; bottom:0; left: 0}
+input#textMsg   {position: fixed; bottom:0; }
+select#msg2room {position:absolute;bottom: 0;}
+button#sendMsg  {position:absolute;bottom: 0;}
+
+select#roomList {position:absolute; bottom:75px; top:0; width: 100%;}
+input#newRoom   {position:absolute; bottom: 30px; width: 100%;}
+button#addRoom  {position:absolute;bottom: 0px; width: 100%;}

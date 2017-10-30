@@ -8,8 +8,25 @@
     </head>
     <body>
       <ul id="messages"></ul>
-        <input id="nm"/>
-        <input id="msg" class="txt" autocomplete="off" />
-        <button onclick="handleButtonClick()">Send</button>
+      <div id="sendMessage">
+        <input id="userName"/>
+        <input id="textMsg" class="txt" autocomplete="off"/>
+        <select id="msg2room" name="msg2room">
+          <option label="everybody" value="everybody"/>
+        </select>
+        <button id="sendMsg" onclick="handleSendMsg()">send msg</button>
+      </div>
+      <div id="rooms">
+        <input id="newRoom"/>
+        <button id="addRoom" onclick="handleNewRoom()">add room</button>
+        <select id="roomList" name="roomList"
+          onclick="handleSelectedRooms(event)" multiple>
+          <option label="Room A" value="Room A"/>
+          <option label="Room B" value="Room B"/>
+          <option label="---------" disabled/>
+          <option label="Péter" value="Péter"/>
+          <option label="Petya" value="Petya"/>
+        </select>
+      </div>
     </body>
   </html>
