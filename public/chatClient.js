@@ -65,21 +65,12 @@ function leaveRoom(roomName)
 {
     log('leaveRoom:',roomName);
     const select = document.getElementById("msg2room");
-    
-//  ??????    
-    select.options.remove(option => option.value == roomName);
-return;    
-    let index = -1;
-    select.options.some(
-        function(option, i, a)
+    let i = select.options.length;
+    while (i -- > 0)
+    {
+        if (select.options[i].value == roomName)
         {
-            if (option.value == roomName) 
-            {
-                index = i;
-                return true;
-            }
-            return false;
+            return select.options.remove(i);
         }
-    );
-    select.options.splice(index,1);
+    }
 }
