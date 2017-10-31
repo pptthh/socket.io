@@ -2,7 +2,7 @@
 body { color: #aaa; background: #333; font: 13px Helvetica, Arial; }
 input, button { color: #aaa; background: #000; padding: 1px;}
 input { border: 0; min-width: 50px; padding: 5px; margin-right: .5%; }
-button { background: #ccc; border: none; padding: 5px; }
+button { background: #333; border: 1px solid #fff ; padding: 3px; }
 
 #messages { list-style-type: none; margin: 0; padding: 0; }
 #messages li { padding: 5px 10px; background: #555}
