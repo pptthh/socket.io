@@ -22,28 +22,28 @@ app.get('/', (req, res) => res.sendFile(__dirname + '/public/chatWindow.html'));
 
 io.on('connection', socket =>
 {
-    console.log('a user connected', socket.handshake.query);
+    log('a user connected', socket.handshake.query);
     
     socket.on('chat message', msg => io.emit('chat message', msg.userName + ':\t'+msg.msg));
     
     socket.on('chat message', msg =>
-        console.log(socket.handshake.query.t,
+        log(socket.handshake.query.t,
             ' message: ' + msg,
             msg.userName,
             msg.textMsg
         )
     );
     
-    socket.on('disconnect', () => console.log('user disconnected',socket.handshake.query));
+    socket.on('disconnect', () => log('user disconnected',socket.handshake.query));
     
     socket.on('addRoom', roomName =>
     {
-        console.log('addRoom', roomName);
+        log('addRoom', roomName,'|',rooms);
         rooms.push(roomName);
+        io.emit('addRoom', roomName);
     });
-    socket.on('joinRoom', roomName => console.log('joinRoom', roomName));
-    socket.on('leaveRoom', roomName => console.log('leaveRoom', roomName));
-    
+    socket.on('joinRoom', roomName => log('joinRoom', roomName));
+    socket.on('leaveRoom', roomName => log('leaveRoom', roomName));
 });
 
-http.listen(port, () => console.log(`listening on *:${port}`));
+http.listen(port, () => log(`listening on *:${port}`));
