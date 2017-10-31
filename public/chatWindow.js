@@ -38,16 +38,18 @@ function handleSelectedRooms(event)
 
 function handleAddRoom()
 {
-    const nr = document.getElementById("newRoom").value;
+    const roomName = document.getElementById("newRoom").value;
     document.getElementById("newRoom").value = '';
-    log('addRoom:', nr);
+    log('addRoom:', roomName);
+    socket.emit('addRoom',roomName);
 }
-
 function joinRoom(roomName)
 {
     log('joinRoom:',roomName);
+    socket.emit('joinRoom',roomName);
 }
 function leaveRoom(roomName)
 {
     log('leaveRoom:',roomName);
+    socket.emit('leaveRoom',roomName);
 }
