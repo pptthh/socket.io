@@ -53,12 +53,15 @@ socket.on('addRoom', roomName =>
     document.getElementById("msg2room").appendChild(o2);
 });
 
+const channels = {};
 function joinRoom(roomName)
 {
     log('joinRoom:',roomName);
     const option = document.createElement('option');
     option.label = option.value = roomName;
     document.getElementById("msg2room").appendChild(option);
+
+    channels.roomName = new Channel(roomName);
 }
 
 function leaveRoom(roomName)
@@ -72,5 +75,13 @@ function leaveRoom(roomName)
         {
             return select.options.remove(i);
         }
+    }
+}
+
+class Channel
+{
+    constructor (roomName)
+    {
+        socket.on(roomName, msg => log(msg));
     }
 }
