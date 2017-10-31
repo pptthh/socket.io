@@ -17,10 +17,10 @@ button { background: #333; border: 1px solid #fff ; padding: 3px; }
 }
 #sendMessage {position: fixed; bottom:0; left: 0; right: 0;border: 1px solid #aaa;}
 
-input#userName  {position: fixed; bottom:0; left: 0}
-input#textMsg   {position: fixed; bottom:0; }
-select#msg2room {position:absolute;bottom: 0;}
-button#sendMsg  {position:absolute;bottom: 0;}
+input#userName  {position: fixed; bottom:0; left: 0; width: 100px;}
+input#textMsg   {position: fixed; bottom:0; left: 200px; right: 100px;}
+select#msg2room {position:absolute;bottom: 0; left: 100px;}
+button#sendMsg  {position:absolute;bottom: 0; right: 0;}
 
 select#roomList {position:absolute; bottom:75px; top:0; width: 100%;}
 input#newRoom   {position:absolute; bottom: 30px; width: 100%;}
