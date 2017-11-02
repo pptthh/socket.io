@@ -1,14 +1,17 @@
 const socket = io();
 const log = console.log;
 function handleSendMsg(){
-    log('socket.emit("everybody"):',{
+    const channel = document.getElementById("msg2room").value;
+    log('socket.emit("' + channel + '"):',{
         userName: document.getElementById("userName").value,
         textMsg: document.getElementById("textMsg").value,
     });
-    socket.emit('everybody',{
-        userName: document.getElementById("userName").value,
-        textMsg: document.getElementById("textMsg").value,
-    });
+    socket.emit(channel,
+        {
+            userName: document.getElementById("userName").value,
+            textMsg: document.getElementById("textMsg").value
+        }
+    );
     msg: document.getElementById("textMsg").value = '';
 }
 socket.on('everybody', msg =>
@@ -91,12 +94,24 @@ function leaveRoom(roomName)
             return select.options.remove(i);
         }
     }
+    delete channels.roomName;
 }
 
 class Channel
 {
     constructor (roomName)
     {
-        socket.on(roomName, msg => displayNewSrvMsg(msg, roomName));
+        socket.on(roomName, msg =>
+            {
+                if (channels.roomName === this)
+                {
+                    displayNewSrvMsg(msg, roomName);
+                }
+                else
+                {
+                    log('garbage in the memory', roomName);
+                }
+            }
+        );
     }
 }
