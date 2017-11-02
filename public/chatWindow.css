@@ -5,7 +5,7 @@ input { border: 0; min-width: 50px; padding: 5px; margin-right: .5%; }
 button { background: #333; border: 1px solid #fff ; padding: 3px; }
 
 .eventName{font-size: xx-small; font-style: italic; margin: 10px;}
-
+div#ul{ position: fixed; bottom: 30px;top: 0;left: 0;right: 120px; overflow-y: auto;    overflow-x: hidden;}
 #messages { list-style-type: none; margin: 20px; padding: 20px;}
 #messages li { padding: 5px 10px; background: #555}
 #messages li:nth-child(odd) { background: #333; }
