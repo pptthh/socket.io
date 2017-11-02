@@ -24,9 +24,9 @@ io.on('connection', socket =>
 {
     log('a user connected', socket.handshake.query);
     
-    socket.on('chat message', msg => io.emit('chat message', msg.userName + ':\t'+msg.textMsg));
+    socket.on('everybody', msg => io.emit('everybody', msg.userName + ':\t'+msg.textMsg));
     
-    socket.on('chat message', msg =>
+    socket.on('everybody', msg =>
         log(socket.handshake.query.t,
             ' message: ' + msg,
             msg.userName,

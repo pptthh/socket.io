@@ -1,19 +1,19 @@
 const socket = io();
 const log = console.log;
 function handleSendMsg(){
-    log('socket.emit("chat message"):',{
+    log('socket.emit("everybody"):',{
         userName: document.getElementById("userName").value,
         textMsg: document.getElementById("textMsg").value,
     });
-    socket.emit('chat message',{
+    socket.emit('everybody',{
         userName: document.getElementById("userName").value,
         textMsg: document.getElementById("textMsg").value,
     });
     msg: document.getElementById("textMsg").value = '';
 }
-socket.on('chat message', msg =>
+socket.on('everybody', msg =>
 {
-    displayNewSrvMsg(msg, 'chat message');
+    displayNewSrvMsg(msg, 'everybody');
 });
 
 function displayNewSrvMsg(msg, eventName)
