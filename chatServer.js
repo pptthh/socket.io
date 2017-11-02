@@ -15,7 +15,6 @@ const io = require('socket.io')(http,
 const port = 3000;
 const log = console.log;
 const rooms = [];
-const participant = {};
 
 app.use('/p',express.static('public'));
 app.get('/', (req, res) => res.sendFile(__dirname + '/public/chatWindow.html'));
@@ -41,9 +40,12 @@ io.on('connection', socket =>
         log('addRoom', roomName,'|',rooms);
         rooms.push(roomName);
         io.emit('addRoom', roomName);
+        socket.on(roomName, msg => io.emit(roomName, msg));
     });
     socket.on('joinRoom', roomName => log('joinRoom', roomName));
     socket.on('leaveRoom', roomName => log('leaveRoom', roomName));
+    
+    rooms.map(roomName => io.emit('addRoom', roomName));
 });
 
 http.listen(port, log(`listening on *:${port}`));

@@ -60,15 +60,16 @@ function handleAddRoom()
     log('addRoom:', roomName);
     socket.emit('addRoom',roomName);
 }
+const rooms = {};
 socket.on('addRoom', roomName =>
 {
+    if (rooms[roomName])
+        return log('addRoom:', roomName, 'from SRV but it already exists');
+    rooms[roomName] = true;
     log('addRoom:', roomName, 'from SRV');
     const o1 = document.createElement('option');
-    //const o2 = document.createElement('option');
     o1.label = o1.value = roomName;
-//    o2.label = o2.value = roomName;
     document.getElementById("roomList").appendChild(o1);
-//    document.getElementById("msg2room").appendChild(o2);
 });
 
 const channels = {};
