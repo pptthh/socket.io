@@ -37,10 +37,17 @@ io.on('connection', socket =>
     
     socket.on('addRoom', roomName =>
     {
-        log('addRoom', roomName,'|',rooms);
-        rooms.push(roomName);
-        io.emit('addRoom', roomName);
-        socket.on(roomName, msg => io.emit(roomName, msg));
+        log('addRoom:', roomName,'|',rooms);
+        if (rooms.indexOf(roomName) < 0)
+        {
+            rooms.push(roomName);
+            io.emit('addRoom', roomName);
+            socket.on(roomName, msg => io.emit(roomName, msg));
+        }
+        else
+        {
+            log('addRoom:', roomName, 'already exists');
+        }
     });
     socket.on('joinRoom', roomName => log('joinRoom', roomName));
     socket.on('leaveRoom', roomName => log('leaveRoom', roomName));
