@@ -47,3 +47,5 @@ io.on('connection', socket =>
 });
 
 http.listen(port, () => log(`listening on *:${port}`));
+
+setInterval(()=>{log('srvTime');io.emit('srvTime', new Date());},10000);

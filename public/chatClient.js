@@ -11,13 +11,19 @@ function handleSendMsg(){
     });
     msg: document.getElementById("textMsg").value = '';
 }
-
 socket.on('chat message', msg =>
 {
-    const li = document.createElement("li");
-    li.appendChild(document.createTextNode(msg));
-    document.getElementById("messages").appendChild(li);
+    displayNewSrvMsg(msg, 'chat message');
 });
+
+function displayNewSrvMsg(msg, eventName)
+{
+    log(msg, eventName);
+    const li = document.createElement("li");
+    li.appendChild(document.createTextNode(msg +'   |'+ eventName));
+    document.getElementById("messages").appendChild(li);
+}
+
 const selectedRooms = [];
 function handleSelectedRooms(event)
 {
@@ -47,10 +53,11 @@ socket.on('addRoom', roomName =>
 {
     log('addRoom:', roomName, 'from SRV');
     const o1 = document.createElement('option');
-    const o2 = document.createElement('option');
-    o1.label = o2.label = o1.value = o2.value = roomName;
+    //const o2 = document.createElement('option');
+    o1.label = o1.value = roomName;
+//    o2.label = o2.value = roomName;
     document.getElementById("roomList").appendChild(o1);
-    document.getElementById("msg2room").appendChild(o2);
+//    document.getElementById("msg2room").appendChild(o2);
 });
 
 const channels = {};
@@ -82,6 +89,6 @@ class Channel
 {
     constructor (roomName)
     {
-        socket.on(roomName, msg => log(msg));
+        socket.on(roomName, msg => displayNewSrvMsg(msg, roomName));
     }
 }
