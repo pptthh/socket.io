@@ -3,11 +3,11 @@ const log = console.log;
 function handleSendMsg(){
     log('socket.emit("chat message"):',{
         userName: document.getElementById("userName").value,
-        msg: document.getElementById("textMsg").value,
+        textMsg: document.getElementById("textMsg").value,
     });
     socket.emit('chat message',{
         userName: document.getElementById("userName").value,
-        msg: document.getElementById("textMsg").value,
+        textMsg: document.getElementById("textMsg").value,
     });
     msg: document.getElementById("textMsg").value = '';
 }
@@ -20,8 +20,16 @@ function displayNewSrvMsg(msg, eventName)
 {
     log(msg, eventName);
     const li = document.createElement("li");
-    li.appendChild(document.createTextNode(msg +'   |'+ eventName));
+    li.appendChild(document.createTextNode(msg));
     document.getElementById("messages").appendChild(li);
+
+    if (eventName)
+    {
+        const span = document.createElement("span");
+        span.className = 'eventName';
+        span.appendChild(document.createTextNode(eventName));
+        li.appendChild(span);
+    }
 }
 
 const selectedRooms = [];

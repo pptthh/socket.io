@@ -4,7 +4,9 @@ input, button { color: #aaa; background: #000; padding: 1px;}
 input { border: 0; min-width: 50px; padding: 5px; margin-right: .5%; }
 button { background: #333; border: 1px solid #fff ; padding: 3px; }
 
-#messages { list-style-type: none; margin: 0; padding: 0; }
+.eventName{font-size: xx-small; font-style: italic; margin: 10px;}
+
+#messages { list-style-type: none; margin: 20px; padding: 20px;}
 #messages li { padding: 5px 10px; background: #555}
 #messages li:nth-child(odd) { background: #333; }
 
