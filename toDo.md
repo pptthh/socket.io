@@ -1,0 +1,7 @@
+- fix chatRoom msg
+- fix initial room broadcast
+- implement one to one chat
+- display users (handle better way)
+- create unit tests
+- deploy to travis-CI and heroku
+- organize code
