@@ -1,18 +1,20 @@
 const socket = io();
 const log = console.log;
+const element = htmlId => document.getElementById(htmlId);
+const inputVal = id => element(id).value;
 function handleSendMsg(){
-    const channel = document.getElementById("msg2room").value;
+    const channel = inputVal("msg2room");
     log('socket.emit("' + channel + '"):',{
-        userName: document.getElementById("userName").value,
-        textMsg: document.getElementById("textMsg").value,
+        userName: inputVal("userName"),
+        textMsg: inputVal("textMsg"),
     });
     socket.emit(channel,
         {
-            userName: document.getElementById("userName").value,
-            textMsg: document.getElementById("textMsg").value
+            userName: inputVal("userName"),
+            textMsg: inputVal("textMsg")
         }
     );
-    msg: document.getElementById("textMsg").value = '';
+    msg: element("textMsg").value = '';
 }
 socket.on('everybody', msg =>
 {
@@ -24,7 +26,7 @@ function displayNewSrvMsg(msg, eventName)
     log(msg, eventName);
     const li = document.createElement("li");
     li.appendChild(document.createTextNode(msg));
-    document.getElementById("messages").appendChild(li);
+    element("messages").appendChild(li);
 
     if (eventName)
     {
@@ -38,25 +40,28 @@ function displayNewSrvMsg(msg, eventName)
 const selectedRooms = [];
 function handleSelectedRooms(event)
 {
-    const index = selectedRooms.indexOf(event.target);
-    if (index < 0)
+    if (event.target.nodeName == 'OPTION')
     {
-        selectedRooms.push(event.target);
-        joinRoom(event.target.value);
+        const index = selectedRooms.indexOf(event.target);
+        if (index < 0)
+        {
+            selectedRooms.push(event.target);
+            joinRoom(event.target.value);
+        }
+        else
+        {
+            event.target.selected = false;
+            selectedRooms.splice(index,1);
+            leaveRoom(event.target.value);
+        }
+        selectedRooms.map(o => o.selected = true);
     }
-    else
-    {
-        event.target.selected = false;
-        selectedRooms.splice(index,1);
-        leaveRoom(event.target.value);
-    }
-    selectedRooms.map(o => o.selected = true);
 }
 
 function handleAddRoom()
 {
-    const roomName = document.getElementById("newRoom").value;
-    document.getElementById("newRoom").value = '';
+    const roomName = element("newRoom");
+    element("newRoom").value = '';
     log('addRoom:', roomName);
     socket.emit('addRoom',roomName);
 }
@@ -69,7 +74,7 @@ socket.on('addRoom', roomName =>
     log('addRoom:', roomName, 'from SRV');
     const o1 = document.createElement('option');
     o1.label = o1.value = roomName;
-    document.getElementById("roomList").appendChild(o1);
+    element("roomList").appendChild(o1);
 });
 
 const channels = {};
@@ -78,7 +83,7 @@ function joinRoom(roomName)
     log('joinRoom:',roomName);
     const option = document.createElement('option');
     option.label = option.value = roomName;
-    document.getElementById("msg2room").appendChild(option);
+    element("msg2room").appendChild(option);
 
     channels.roomName = new Channel(roomName);
 }
@@ -86,7 +91,7 @@ function joinRoom(roomName)
 function leaveRoom(roomName)
 {
     log('leaveRoom:',roomName);
-    const select = document.getElementById("msg2room");
+    const select = element("msg2room");
     let i = select.options.length;
     while (i -- > 0)
     {
@@ -102,7 +107,9 @@ class Channel
 {
     constructor (roomName)
     {
-        socket.on(roomName, msg =>
+        socket.on(
+            this.roomName = roomName,
+            this.fn = msg =>
             {
                 if (channels.roomName === this)
                 {
@@ -111,8 +118,11 @@ class Channel
                 else
                 {
                     log('garbage in the memory', roomName);
+                    this.off();
                 }
             }
         );
     }
+    
+    off(){socket.off(this.roomName, this.fn)}
 }
