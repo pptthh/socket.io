@@ -1,0 +1,1 @@
+web: node --debug=56789 --optimize_for_size --max_old_space_size=480 chatServer.js
