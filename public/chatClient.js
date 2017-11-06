@@ -6,13 +6,13 @@ const textNode = txt => document.createTextNode(txt);
 const newElement = e => document.createElement(e);
 
 function handleSendMsg(){
-    const channel = inputVal("msg2room");
-    log('socket.emit("' + channel + '"):',{
+    log('socket.emit("' + inputVal("msg2room") + '"):',{
         userName: inputVal("userName"),
         textMsg: inputVal("textMsg"),
     });
-    socket.emit(channel,
+    socket.emit('forward',
         {
+            to: inputVal("msg2room"),
             userName: inputVal("userName"),
             textMsg: inputVal("textMsg")
         }
@@ -95,6 +95,8 @@ function joinRoom(roomName)
 function leaveRoom(roomName)
 {
     log('leaveRoom:',roomName);
+    channels[roomName] = undefined;
+    delete channels[roomName];
     const select = element("msg2room");
     let i = select.options.length;
     while (i -- > 0)
@@ -104,7 +106,6 @@ function leaveRoom(roomName)
             return select.options.remove(i);
         }
     }
-    delete channels[roomName];
 }
 
 class Channel
@@ -118,7 +119,7 @@ class Channel
                 if (channels[roomName] === this)
                 {
                     displayNewSrvMsg(
-                        typeof(msg) == 'string' ? msg : msg.userName + ' :' + msg.textMsg, 
+                        typeof(msg) == 'string' ? msg : msg.userName + ': ' + msg.textMsg, 
                         roomName
                     );
                 }

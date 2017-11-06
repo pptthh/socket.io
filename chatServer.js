@@ -22,9 +22,8 @@ app.get('/', (req, res) => res.sendFile(__dirname + '/public/chatWindow.html'));
 io.on('connection', socket =>
 {
     log('a user connected', socket.handshake.query);
-    
+
     socket.on('everybody', msg => io.emit('everybody', msg.userName + ':\t'+msg.textMsg));
-    
     socket.on('everybody', msg =>
         log(socket.handshake.query.t,
             ' name: ',msg.userName,
@@ -33,7 +32,7 @@ io.on('connection', socket =>
     );
     
     socket.on('disconnect', () => log('user disconnected',socket.handshake.query));
-    
+
     socket.on('addRoom', roomName =>
     {
         log('addRoom:', roomName,'|',rooms);
@@ -52,6 +51,8 @@ io.on('connection', socket =>
     socket.on('leaveRoom', roomName => log('leaveRoom', roomName));
     
     rooms.map(roomName => io.emit('addRoom', roomName));
+
+    socket.on('forward', msg => io.emit(msg.to, msg));
 });
 
 http.listen(port, log(`listening on *:${port}`));
