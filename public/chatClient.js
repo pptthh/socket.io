@@ -63,7 +63,7 @@ function handleSelectedRooms(event)
 
 function handleAddRoom()
 {
-    const roomName = element("newRoom");
+    const roomName = inputVal("newRoom");
     element("newRoom").value = '';
     log('addRoom:', roomName);
     socket.emit('addRoom',roomName);

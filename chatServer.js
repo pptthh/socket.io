@@ -27,9 +27,8 @@ io.on('connection', socket =>
     
     socket.on('everybody', msg =>
         log(socket.handshake.query.t,
-            ' message: ' + msg,
-            msg.userName,
-            msg.textMsg
+            ' name: ',msg.userName,
+            ' msg: ',msg.textMsg
         )
     );
     
