@@ -10,7 +10,7 @@ function handleSendMsg(){
         userName: inputVal("userName"),
         textMsg: inputVal("textMsg"),
     });
-    socket.emit('forward',
+    socket.emit('fw',
         {
             to: inputVal("msg2room"),
             userName: inputVal("userName"),
@@ -28,7 +28,9 @@ function displayNewSrvMsg(msg, eventName)
 {
     log('displayNewSrvMsg:', msg, eventName);    
     const li = newElement("li");
-    li.appendChild(textNode(msg));
+    li.appendChild(textNode(
+        typeof(msg) == 'string' ? msg : msg.userName + ': ' + msg.textMsg
+    ));
     element("messages").appendChild(li);
 
     if (eventName)
@@ -118,10 +120,7 @@ class Channel
             {
                 if (channels[roomName] === this)
                 {
-                    displayNewSrvMsg(
-                        typeof(msg) == 'string' ? msg : msg.userName + ': ' + msg.textMsg, 
-                        roomName
-                    );
+                    displayNewSrvMsg(msg, roomName);
                 }
                 else
                 {
