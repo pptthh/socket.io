@@ -89,7 +89,7 @@ function joinRoom(roomName)
     option.label = option.value = roomName;
     element("msg2room").appendChild(option);
 
-    channels.roomName = new Channel(roomName);
+    channels[roomName] = new Channel(roomName);
 }
 
 function leaveRoom(roomName)
@@ -104,7 +104,7 @@ function leaveRoom(roomName)
             return select.options.remove(i);
         }
     }
-    delete channels.roomName;
+    delete channels[roomName];
 }
 
 class Channel
@@ -115,7 +115,7 @@ class Channel
             this.roomName = roomName,
             this.fn = msg =>
             {
-                if (channels.roomName === this)
+                if (channels[roomName] === this)
                 {
                     displayNewSrvMsg(
                         typeof(msg) == 'string' ? msg : msg.userName + ' :' + msg.textMsg, 
