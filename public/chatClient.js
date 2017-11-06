@@ -26,14 +26,14 @@ socket.on('everybody', msg =>
 
 function displayNewSrvMsg(msg, eventName)
 {
-    log(msg, eventName);
-    const li = document.createElement("li");
+    log('displayNewSrvMsg:', msg, eventName);    
+    const li = newElement("li");
     li.appendChild(textNode(msg));
     element("messages").appendChild(li);
 
     if (eventName)
     {
-        const span = document.createElement("span");
+        const span = newElement("span");
         span.className = 'eventName';
         span.appendChild(textNode(eventName));
         li.appendChild(span);
@@ -68,6 +68,7 @@ function handleAddRoom()
     log('addRoom:', roomName);
     socket.emit('addRoom',roomName);
 }
+
 const rooms = {};
 socket.on('addRoom', roomName =>
 {
@@ -75,7 +76,7 @@ socket.on('addRoom', roomName =>
         return log('addRoom:', roomName, 'from SRV but it already exists');
     rooms[roomName] = true;
     log('addRoom:', roomName, 'from SRV');
-    const o1 = document.createElement('option');
+    const o1 = newElement('option');
     o1.label = o1.value = roomName;
     element("roomList").appendChild(o1);
 });
@@ -84,7 +85,7 @@ const channels = {};
 function joinRoom(roomName)
 {
     log('joinRoom:',roomName);
-    const option = document.createElement('option');
+    const option = newElement('option');
     option.label = option.value = roomName;
     element("msg2room").appendChild(option);
 
@@ -116,7 +117,10 @@ class Channel
             {
                 if (channels.roomName === this)
                 {
-                    displayNewSrvMsg(msg, roomName);
+                    displayNewSrvMsg(
+                        typeof(msg) == 'string' ? msg : msg.userName + ' :' + msg.textMsg, 
+                        roomName
+                    );
                 }
                 else
                 {
