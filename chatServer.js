@@ -16,6 +16,7 @@ const port = process.env.PORT || 3000;
 
 const log = console.log;
 const rooms = [];
+module.exports = app;
 
 app.use('/p',express.static('public'));
 app.get('/', (req, res) => res.sendFile(__dirname + '/public/chatWindow.html'));
