@@ -12,7 +12,8 @@ const io = require('socket.io')(http,
     //  adapter:socket.io-adapter  //  default value
     //  parser:socket.io-parser
 });
-const port = 3000;
+const port = process.env.PORT || 3000;
+
 const log = console.log;
 const rooms = [];
 
