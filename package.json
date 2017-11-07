@@ -5,7 +5,6 @@
   "scripts": {
     "main": "chatServer.js",
     "start": "node chatServer.js",
-//  "test": "node chatServer.test.js exit 1",
     "test": "mocha --exit ./test"
   },
   "repository": {
