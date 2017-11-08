@@ -1,3 +1,7 @@
+-   webpack
+-   tsc
+-   debug srv/clinet
+#---------------
 - fix chatRoom msg
 - fix initial room broadcast
 - implement one to one chat
