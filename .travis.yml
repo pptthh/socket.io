@@ -1,5 +1,7 @@
 language: node_js
 node_js:
-  - "lts/"
-  env:
+  - 6
+  - node
+env:
   - TEST_SUITE=units
+sudo: false
